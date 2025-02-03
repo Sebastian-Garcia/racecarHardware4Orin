@@ -1,0 +1,46 @@
+<!-- -*- mode: XML -*- -->
+<!--
+ This work is sponsored by the Department of the Air Force under Air Force
+ Contract FA8721-05-C-0002. Opinions, interpretations, conclusions, and
+ recommendations are those of the author and are not necessarily endorsed by
+ the United States Government.
+-->
+
+<launch>
+  <!-- Chain the MUXs -->
+  <node name="mux_chainer" pkg="topic_tools" exec="relay"
+  	args="/vesc/high_level/ackermann_cmd_mux/output /vesc/low_level/ackermann_cmd_mux/input/navigation" />
+
+
+  <!-- Define mappings for backwards compatibility -->
+  <node name="mux_topic_backward_compat_safety" pkg="topic_tools" exec="relay"
+  	args="/vesc/ackermann_cmd_mux/input/safety /vesc/low_level/ackermann_cmd_mux/input/safety" />
+  <node name="mux_topic_backward_compat_teleop" pkg="topic_tools" exec="relay"
+  	args="/vesc/ackermann_cmd_mux/input/teleop /vesc/low_level/ackermann_cmd_mux/input/teleop" />
+  <node name="mux_topic_backward_compat_navigation" pkg="topic_tools" exec="relay"
+  	args="/vesc/ackermann_cmd_mux/input/navigation /vesc/high_level/ackermann_cmd_mux/input/nav_0" />
+  
+  <!-- default (zero) ackermann command for high level MUX -->
+  <node name="zero_ackermann_cmd" pkg="rostopic" exec="rostopic" args="pub -r 6 high_level/ackermann_cmd_mux/input/default ackermann_msgs/AckermannDriveStamped '{header: auto, drive: {steering_angle: 0.0, speed: 0.0} }'" />
+  TODO: UPDATE THIS ONE ABOVE BECAUSE ITS NOT SUPPORTED IN ROS2
+  
+  
+
+
+  <group>
+    <!-- High level MUX -->
+    <push-ros-namespace namespace="high_level"/>
+    <include file="$(find-pkg-share ackermann_cmd_mux)/launch/ackermann_cmd-mux-launch.py" />
+      <let name="config_file" value="$(find-pkg-prefix racecar)/config/high_level_mux.yaml" />
+    </include>
+  </group>
+
+  <group>
+    <!-- Low level MUX -->
+    <push-ros-namespace namespace="low_level"/>
+    <include file="$(find-pkg-share ackermann_cmd_mux)/launch/ackermann_cmd-mux-launch.py" />
+      <let name="config_file" value="$(find-pkg-prefix racecar)/config/low_level_mux.yaml" />
+    </include>
+  </group>
+
+</launch>

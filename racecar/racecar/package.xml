@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>racecar</name>
+  <version>0.0.1</version>
+  <description>RACECAR launch scripts</description>
+
+  <maintainer email="boulet@ll.mit.edu">Michael Boulet</maintainer>
+  <license>BSD</license>
+
+  <!-- <url type="website">http://wiki.ros.org/pwm_sysfs_driver</url> -->
+
+  <!-- <author email="jane.doe@example.com">Jane Doe</author> -->
+
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <!--<build_depend></build_depend>-->
+
+  <!-- <run_depend>razor_imu_9dof</run_depend> -->
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>urg_node</exec_depend>
+  <exec_depend>joy</exec_depend>
+  <exec_depend>rviz2</exec_depend>
+
+  <!-- specific to racecar-v2 -->
+
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

@@ -1,0 +1,14 @@
+<launch>
+	<node pkg="velodyne_driver" exec="velodyne_driver_node" name="velodyne_driver">
+		<param from="$(find-pkg-share racecar)/config/velodyne.yaml"/>
+	</node>
+
+	<node pkg="velodyne_pointcloud" exec="velodyne_transform_node" name="velodyne_pcl">
+		<param from="$(find-pkg-share racecar)/config/velodyne.yaml"/>
+		<param name="calibration" value="$(find-pkg-share racecar)/config/VLP16db.yaml"/>
+	</node>
+
+	<node pkg="velodyne_laserscan" exec="velodyne_laserscan_node" name="velodyne_laserscan">
+		<param from="$(find-pkg-share racecar)/config/velodyne.yaml"/>
+	</node>
+</launch>

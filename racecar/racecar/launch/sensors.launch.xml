@@ -1,0 +1,19 @@
+<!-- -*- mode: XML -*- -->
+<launch>
+  <arg name="sensors_config"
+       default="$(find-pkg-share racecar)/config/sensors.yaml" />
+
+  <!-- laser -->
+  <!-- export SCANNER_TYPE=hokuyo -->
+  <group if="$(eval '\'$(env SCANNER_TYPE)\' == \'hokuyo\'')">
+    <!-- Hokoyu laser -->
+    <include file="$(find-pkg-share urg_node2)/launch/urg_node2.launch.py"/>
+  </group>
+
+  <!-- export SCANNER_TYPE=velodyne -->
+  <group if="$(eval '\'$(env SCANNER_TYPE)\' == \'velodyne\'')">
+    <!-- Hokoyu laser -->
+    <include file="$(find-pkg-share racecar)/launch/velodyne.launch.xml"/>
+  </group>
+
+</launch>
