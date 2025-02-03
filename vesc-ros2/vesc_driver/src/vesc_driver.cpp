@@ -66,7 +66,7 @@ VescDriver::VescDriver(const rclcpp::NodeOptions & options)
   fw_version_minor_(-1)
 {
   // get vesc serial port address
-  std::string port = declare_parameter<std::string>("port", "");
+  std::string port = declare_parameter<std::string>("port", "/dev/ttyACM0");
 
   // attempt to connect to the serial port
   try {
@@ -351,7 +351,7 @@ VescDriver::CommandLimit::CommandLimit(
 {
   // check if user's minimum value is outside of the range min_lower to max_upper
   auto param_min =
-    node_ptr->declare_parameter(name + "_min", rclcpp::ParameterValue(0.0));
+    node_ptr->declare_parameter("vesc_driver." + name +  "_min", rclcpp::ParameterValue(0.0));
 
   if (param_min.get_type() != rclcpp::ParameterType::PARAMETER_NOT_SET) {
     if (min_lower && param_min.get<double>() < *min_lower) {
@@ -373,7 +373,7 @@ VescDriver::CommandLimit::CommandLimit(
 
   // check if the uers' maximum value is outside of the range min_lower to max_upper
   auto param_max =
-    node_ptr->declare_parameter(name + "_max", rclcpp::ParameterValue(0.0));
+    node_ptr->declare_parameter("vesc_driver." + name +  "_max", rclcpp::ParameterValue(0.0));
 
   if (param_max.get_type() != rclcpp::ParameterType::PARAMETER_NOT_SET) {
     if (min_lower && param_max.get<double>() < *min_lower) {
