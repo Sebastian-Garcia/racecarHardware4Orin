@@ -36,15 +36,19 @@ import importlib
 import typing
 
 import rclpy
+import sensor_msgs.msg
 from rclpy.action import ActionClient
 from rclpy.node import Node
 from rclpy.parameter import PARAMETER_SEPARATOR_STRING
 from rosidl_runtime_py import set_message_fields
-import sensor_msgs.msg
 
 
 class JoyTeleopException(Exception):
     pass
+
+
+# fixme: bad hack! (alan)
+DEADMANS = [4, 5]
 
 
 def get_interface_type(type_name: str, interface_type: str) -> typing.Any:
@@ -113,7 +117,7 @@ class JoyTeleopCommand:
         self.active = True
 
         if self.is_default:
-            self.active = joy_state.buttons[5] != 1
+            self.active = all(joy_state.buttons[x] != 1 for x in DEADMANS)
             return
 
         if (self.min_button is not None and len(joy_state.buttons) <= self.min_button) and \
@@ -434,4 +438,3 @@ def main(args=None):
 
     node.destroy_node()
     rclpy.shutdown()
-
