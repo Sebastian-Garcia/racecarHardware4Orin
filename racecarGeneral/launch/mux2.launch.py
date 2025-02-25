@@ -87,13 +87,13 @@ def generate_launch_description():
         #         '{"header": {"stamp": {"sec": 0, "nanosec": 0}}, "drive": {"steering_angle": 0.0, "speed": 0.0}}'
         #     ]
         # ),
-        Node(
-            package='racecar',
-            executable='defaultCmd',
-            name='zero_ackermann_cmd',
-            output='screen',
-            namespace='vesc'
-        ),
+        # Node(
+        #     package='racecar',
+        #     executable='defaultCmd',
+        #     name='zero_ackermann_cmd',
+        #     output='screen',
+        #     namespace='vesc'
+        # ),
         
         # High level MUX
         Node(
