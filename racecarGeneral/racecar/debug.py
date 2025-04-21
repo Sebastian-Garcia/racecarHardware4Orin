@@ -8,7 +8,7 @@ from ackermann_msgs.msg import AckermannDriveStamped
 class DrivePub:
     def __init__(self):
         self.node = rclpy.create_node('drive_pub')
-        self.pub = self.node.create_publisher(AckermannDriveStamped, '/vesc/low_level/ackermann_cmd_mux/output', 10)
+        self.pub = self.node.create_publisher(AckermannDriveStamped, '/vesc/low_level/input/navigation', 10)
         self.freq = 10
         self.count = 0
         self.period = 3  # 3 seconds
@@ -18,18 +18,11 @@ class DrivePub:
 
     def timer_callback(self):
         # Oscillate between driving and not driving
-        if self.count < self.period * self.freq:
-            self.count += 1
-        else:
-            self.on = not self.on
-            self.count = 0
-
-        self.node.get_logger().info(str(self.count))
-
+        
         msg = AckermannDriveStamped()
         msg.header.stamp = self.node.get_clock().now().to_msg()
         msg.drive.steering_angle = 0.0
-        msg.drive.speed = 0.2 * self.on
+        msg.drive.speed = 10.0
         self.pub.publish(msg)
 
 

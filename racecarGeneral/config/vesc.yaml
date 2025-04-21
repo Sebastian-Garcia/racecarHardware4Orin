@@ -24,21 +24,7 @@
     # car wheelbase is about 25cm 
     wheelbase: 0.25
 
-
-
     port: /dev/ttyACM0
-    duty_cycle_min: 0.0
-    duty_cycle_max: 0.0
-    current_min: 0.0
-    current_max: 20.0
-    brake_min: -20000.0
-    brake_max: 200000.0
-    speed_min: -4000.0
-    speed_max: 18500.0
-    position_min: 0.0
-    position_max: 0.0
-    servo_min: 0.15
-    servo_max: 0.85
 
     vesc_driver:
         port: /dev/ttyACM0
@@ -49,7 +35,7 @@
         brake_min: -20000.0
         brake_max: 200000.0
         speed_min: -3250.0
-        speed_max: 10000.0
+        speed_max: 10000
         position_min: 0.0
         position_max: 0.0
         servo_min: 0.15
