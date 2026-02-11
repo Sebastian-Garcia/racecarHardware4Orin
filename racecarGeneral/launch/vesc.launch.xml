@@ -1,6 +1,7 @@
 <!-- -*- mode: XML -*- -->
 <launch>
 
+  <arg name="publish_odom_tf" default="true" />
   <node pkg="vesc_ackermann" exec="ackermann_to_vesc_node" name="ackermann_to_vesc">
     <param from="$(find-pkg-share racecar)/config/vesc.yaml"/>
     <!-- Remap to make mux control work with the VESC -->
@@ -17,6 +18,7 @@
   
   <node pkg="vesc_ackermann" exec="vesc_to_odom_node" name="vesc_to_odom" >
     <param from="$(find-pkg-share racecar)/config/vesc.yaml"/>
+    <param name="publish_tf" value="$(var publish_odom_tf)" />
   </node>
 
   <node name="throttle_interpolator" pkg="ackermann_cmd_mux" exec="throttle_interpolator.py" >
