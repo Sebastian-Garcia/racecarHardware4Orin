@@ -18,7 +18,7 @@
 
   <group>
     <!-- start laser scanner -->
-    <include file="$(find-pkg-share racecar)/lau<param name="publish_tf" value="$(var publish_wheel_odom)" />nch/sensors.launch.xml" ></include>
+    <include file="$(find-pkg-share racecar)/launch/sensors.launch.xml" ></include>
   </group>
    
 
