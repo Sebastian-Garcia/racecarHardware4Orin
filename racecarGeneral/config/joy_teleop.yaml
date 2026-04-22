@@ -25,7 +25,7 @@
     axis_mappings:
       drive-speed:
         axis: 1
-        scale: 2.0                   # joystick will command plus or minus 2 meters / second
+        scale: 3.0                   # joystick will command plus or minus 2 meters / second
         offset: 0.0
       drive-steering_angle:
         axis: 3
